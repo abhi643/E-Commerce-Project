@@ -3,7 +3,6 @@ import "./Home_page.css"
 import Navbar_frame from '../Common frames/Navbar_frame'
 import HomePage_1 from './HomePage_1'
 import Home_page_2 from './Home_page_2'
-import Website_features from '../Common frames/Website_features'
 import Footer_frame from '../Common frames/Footer_frame'
 import Offers_frame from '../Common frames/Offers_frame'
 
@@ -16,16 +15,6 @@ const Home_page = () => {
                 <div className="Navbar_frame fixed top:0 left-0 z-50">
                     <Navbar_frame />
                 </div>
-
-
-                {/* --------------------> basic features div */}
-                <div className="website_features_div">
-                    <Website_features />
-                </div>
-
-
-
-
                 {/* ---------------------->  Home page main frame */}
                 <div className="Home_page_main_frame z-30 bg-gray-100">
                     {/* Homepage 1 */}

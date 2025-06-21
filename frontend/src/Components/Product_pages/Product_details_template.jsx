@@ -8,7 +8,6 @@ import laptop4 from '../../../public/images/facebook_icon.svg'
 import { useParams } from "react-router-dom"
 import items from "./products.json"
 import Navbar_frame from "../Common frames/Navbar_frame";
-import Website_features from "../Common frames/Website_features";
 import Footer_frame from "../Common frames/Footer_frame";
 import { toast } from 'react-toastify';
 
@@ -22,6 +21,22 @@ const Product_details_template = (props) => {
     const result = data.find(item => item._id === Number(id));
     setitems_value(result);
   }, [data, id]);
+
+  const add_to_cart_handle = (newItem) => {
+
+    let items_ = JSON.parse(localStorage.getItem("myItems")) || [];
+    console.log(items_.map(item => item.name));
+    if (items_.map(item => item.name).includes(newItem.name) === true) {
+      alert('item already in cart')
+      return;
+    } else {
+      items_.push(newItem);
+      // Save back to local storage
+      localStorage.setItem("myItems", JSON.stringify(items_));
+      toast.success('added to cart successfully');
+    }
+
+  }
 
 
   // State for quantity
@@ -95,9 +110,6 @@ const Product_details_template = (props) => {
     setCurrentSlide(index);
   };
 
-  const handleAddToCart = () => {
-    toast.success(`Added ${quantity} MacBook Pro (${selectedColor}, ${selectedStorage}) to cart!`);
-  };
 
   const handleAddToWishlist = () => {
     alert(`Added MacBook Pro (${selectedColor}, ${selectedStorage}) to wishlist!`);
@@ -113,10 +125,7 @@ const Product_details_template = (props) => {
       <div className="Navbar_frame">
         <Navbar_frame />
       </div>
-      {/* website features fraem */}
-      <div className="website_features_div">
-        <Website_features />
-      </div>
+
 
       <div className="bg-gray-50 min-h-screen mt-[37vw] py-[10vw] md:py-[17px] md:mt-[130px]">
 
@@ -290,7 +299,7 @@ const Product_details_template = (props) => {
                   </div>
                 </div>
                 <button
-                  onClick={handleAddToCart}
+                  onClick={()=> {add_to_cart_handle(items_value)}}
                   className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded flex-grow text-center"
                 >
                   Add To Cart
@@ -328,15 +337,8 @@ const Product_details_template = (props) => {
                 <button className="bg-blue-800 text-white text-sm px-4 py-2 rounded flex items-center gap-1 hover:bg-blue-900">
                   <Share size={14} /> Share
                 </button>
-                <button className="bg-blue-400 text-white text-sm px-4 py-2 rounded flex items-center gap-1 hover:bg-blue-500">
-                  <Twitter size={14} /> Tweet
-                </button>
-                <button className="bg-red-600 text-white text-sm px-4 py-2 rounded flex items-center gap-1 hover:bg-red-700">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.5 19c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm-4.5-1c0-2.57-2.43-3-2.5-3-.17 0-.32-.09-.41-.24-.07-.12-.07-.27-.01-.4.27-.59.83-.98 1.42-.98h1c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-1c-.79 0-1.54.39-2 1.04-.46.66-.54 1.51-.2 2.25.28.61.93 1.35 1.7 1.85v2.48zm2.5-6.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z" />
-                  </svg>
-                  Pinterest
-                </button>
+                
+               
               </div>
             </div>
           </div>
